@@ -5,8 +5,9 @@ const jwt = require('jsonwebtoken');
 exports.register = async (req, res) => {
     const { name, email, password, role } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
+    const profile_photo_url = `https://ui-avatars.com/api/?name=${name}&background=random`
     try {
-        const user = await User.create({ name, email, password: hashedPassword, role });
+        const user = await User.create({ name, email, password: hashedPassword, role, profile_photo_url });
         res.status(201).json(user);
     } catch (err) {
         res.status(400).json({ error: err.message });
